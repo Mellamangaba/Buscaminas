@@ -4,6 +4,9 @@
  */
 package modelo;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gabri
@@ -14,7 +17,9 @@ public class FormInicio extends javax.swing.JFrame {
      * Creates new form FormInicio
      */
     public FormInicio() {
+        setUndecorated(true);
         initComponents();
+        
         setResizable(false);
         setLocationRelativeTo(null);
     }
@@ -29,12 +34,127 @@ public class FormInicio extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelFondo = new javax.swing.JPanel();
+        Titulo = new javax.swing.JLabel();
+        Salir = new javax.swing.JButton();
+        PanelBotonInicio = new javax.swing.JPanel();
+        LblIniciar = new javax.swing.JLabel();
+        PanelBotonCargar = new javax.swing.JPanel();
+        LblCargar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PanelFondo.setBackground(new java.awt.Color(102, 102, 102));
+        PanelFondo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         PanelFondo.setPreferredSize(new java.awt.Dimension(416, 315));
         PanelFondo.setLayout(null);
+
+        Titulo.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        Titulo.setText("BUSCAMINAS");
+        Titulo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Titulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        PanelFondo.add(Titulo);
+        Titulo.setBounds(60, 20, 300, 50);
+
+        Salir.setBackground(new java.awt.Color(204, 204, 204));
+        Salir.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        Salir.setText("X");
+        Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SalirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SalirMouseExited(evt);
+            }
+        });
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
+        PanelFondo.add(Salir);
+        Salir.setBounds(360, 0, 50, 28);
+
+        PanelBotonInicio.setBackground(new java.awt.Color(204, 204, 204));
+        PanelBotonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelBotonInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelBotonInicioMouseEntered(evt);
+            }
+        });
+
+        LblIniciar.setBackground(new java.awt.Color(204, 204, 204));
+        LblIniciar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        LblIniciar.setText("   Iniciar Partida");
+        LblIniciar.setAlignmentX(4.0F);
+        LblIniciar.setAlignmentY(2.0F);
+        LblIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LblIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LblIniciarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LblIniciarMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelBotonInicioLayout = new javax.swing.GroupLayout(PanelBotonInicio);
+        PanelBotonInicio.setLayout(PanelBotonInicioLayout);
+        PanelBotonInicioLayout.setHorizontalGroup(
+            PanelBotonInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LblIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        );
+        PanelBotonInicioLayout.setVerticalGroup(
+            PanelBotonInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LblIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        PanelFondo.add(PanelBotonInicio);
+        PanelBotonInicio.setBounds(20, 90, 150, 50);
+
+        PanelBotonCargar.setBackground(new java.awt.Color(204, 204, 204));
+
+        LblCargar.setBackground(new java.awt.Color(204, 204, 204));
+        LblCargar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        LblCargar.setText("  Cargar Partida");
+        LblCargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LblCargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LblCargarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LblCargarMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelBotonCargarLayout = new javax.swing.GroupLayout(PanelBotonCargar);
+        PanelBotonCargar.setLayout(PanelBotonCargarLayout);
+        PanelBotonCargarLayout.setHorizontalGroup(
+            PanelBotonCargarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LblCargar, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        );
+        PanelBotonCargarLayout.setVerticalGroup(
+            PanelBotonCargarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LblCargar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        PanelFondo.add(PanelBotonCargar);
+        PanelBotonCargar.setBounds(20, 190, 150, 50);
+
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton1.setText("Instrucciones");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        PanelFondo.add(jButton1);
+        jButton1.setBounds(279, 270, 130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,8 +170,55 @@ public class FormInicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_SalirActionPerformed
+
+    private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SalirMouseClicked
+
+    private void SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseEntered
+       Salir.setForeground(Color.red);
+    }//GEN-LAST:event_SalirMouseEntered
+
+    private void SalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseExited
+        Salir.setForeground(Color.black);
+    }//GEN-LAST:event_SalirMouseExited
+
+    private void LblIniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblIniciarMouseEntered
+        PanelBotonInicio.setBackground(new Color(153,153,153));
+    }//GEN-LAST:event_LblIniciarMouseEntered
+
+    private void PanelBotonInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBotonInicioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelBotonInicioMouseEntered
+
+    private void LblCargarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblCargarMouseEntered
+        PanelBotonCargar.setBackground(new Color(153,153,153));
+    }//GEN-LAST:event_LblCargarMouseEntered
+
+    private void LblIniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblIniciarMouseExited
+        PanelBotonInicio.setBackground(new Color(204,204,204));
+    }//GEN-LAST:event_LblIniciarMouseExited
+
+    private void LblCargarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblCargarMouseExited
+        PanelBotonCargar.setBackground(new Color(204,204,204));
+    }//GEN-LAST:event_LblCargarMouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(this,"Las instrucciones para jugar son: ");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LblCargar;
+    private javax.swing.JLabel LblIniciar;
+    private javax.swing.JPanel PanelBotonCargar;
+    private javax.swing.JPanel PanelBotonInicio;
     private javax.swing.JPanel PanelFondo;
+    private javax.swing.JButton Salir;
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
