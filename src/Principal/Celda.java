@@ -9,6 +9,7 @@ package Principal;
  * @author Daniel
  */
 public class Celda {
+
     private String id;
     private int fila;
     private int columna;
@@ -18,7 +19,7 @@ public class Celda {
     private int minasAdyacentes;
     private Celda[] adyacentes;
 
-    public Celda(String id, int fila, int columna){
+    public Celda(String id, int fila, int columna) {
         this.id = id;
         this.fila = fila;
         this.columna = columna;
@@ -35,7 +36,7 @@ public class Celda {
 
     public int getFila() {
         return fila;
-    }   
+    }
 
     public int getColumna() {
         return columna;
@@ -80,8 +81,16 @@ public class Celda {
     public void setAdyacentes(Celda[] adyacentes) {
         this.adyacentes = adyacentes;
     }
-    
-    
-    
-    
+
+    public void AgregarAdyacente(Celda celda) {
+        for (int i = 0; i < adyacentes.length; i++) {
+            if (adyacentes[i] == null) {
+                adyacentes[i] = celda;
+                break;
+            }
+
+        }
+
+    }
+
 }
