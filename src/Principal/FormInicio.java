@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package modelo;
+package Principal;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import modelo.Celdas;
 
 /**
  *
@@ -16,14 +17,21 @@ public class FormInicio extends javax.swing.JFrame {
     /**
      * Creates new form FormInicio
      */
+    
+    public static void main(String[] args) {
+        FormInicio formInicio = new FormInicio();
+        new FormInicio().setVisible(true);
+    }
+   
     public FormInicio() {
         setUndecorated(true);
         initComponents();
         
         setResizable(false);
         setLocationRelativeTo(null);
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +48,7 @@ public class FormInicio extends javax.swing.JFrame {
         LblIniciar = new javax.swing.JLabel();
         PanelBotonCargar = new javax.swing.JPanel();
         LblCargar = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Instructions = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,7 +84,7 @@ public class FormInicio extends javax.swing.JFrame {
             }
         });
         PanelFondo.add(Salir);
-        Salir.setBounds(360, 0, 50, 28);
+        Salir.setBounds(360, 0, 50, 32);
 
         PanelBotonInicio.setBackground(new java.awt.Color(204, 204, 204));
         PanelBotonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -147,17 +155,17 @@ public class FormInicio extends javax.swing.JFrame {
         PanelFondo.add(PanelBotonCargar);
         PanelBotonCargar.setBounds(20, 190, 150, 50);
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton1.setText("Instrucciones");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Instructions.setBackground(new java.awt.Color(204, 204, 204));
+        Instructions.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        Instructions.setText("Instrucciones");
+        Instructions.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Instructions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                InstructionsActionPerformed(evt);
             }
         });
-        PanelFondo.add(jButton1);
-        jButton1.setBounds(279, 270, 130, 40);
+        PanelFondo.add(Instructions);
+        Instructions.setBounds(279, 270, 130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,20 +217,22 @@ public class FormInicio extends javax.swing.JFrame {
         PanelBotonCargar.setBackground(new Color(204,204,204));
     }//GEN-LAST:event_LblCargarMouseExited
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void InstructionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InstructionsActionPerformed
         JOptionPane.showMessageDialog(this,"Las instrucciones para jugar son:\n1.- \n" 
                 + "2-\n"
                 + "3-\n"
                 + "4-\n");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_InstructionsActionPerformed
 
     private void LblIniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblIniciarMouseClicked
         Celdas celdas = new Celdas();
         celdas.setVisible(true);
+        dispose();
     }//GEN-LAST:event_LblIniciarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Instructions;
     private javax.swing.JLabel LblCargar;
     private javax.swing.JLabel LblIniciar;
     private javax.swing.JPanel PanelBotonCargar;
@@ -230,6 +240,5 @@ public class FormInicio extends javax.swing.JFrame {
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton Salir;
     private javax.swing.JLabel Titulo;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
