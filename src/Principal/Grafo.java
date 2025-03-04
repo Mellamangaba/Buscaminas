@@ -4,6 +4,8 @@
  */
 package Principal;
 
+import java.util.Random;
+
 /**
  *
  * @author Daniel
@@ -17,8 +19,19 @@ public class Grafo {
         this.filas = filas;
         this.columnas = columnas;
         this.celdas = new Celda[filas][columnas];
-        
+        InicializarCeldas();
+        ConstruirListaAdyacencias();
     }
+    
+    private void InicializarCeldas(){
+        for (int i = 0; i < filas; i++){
+            for(int j = 0; j < columnas; j++){
+                String id = GenerarId(i,j);
+                celdas[i][j] = new Celda(id, i, j);
+            }
+        }
+    }
+    
     private String GenerarId(int fila, int columna){
         char letra = (char) ('A' + fila);
         int numero = columna + 1;
@@ -69,5 +82,35 @@ public class Grafo {
         }
     }
     
+    public void GenerarMinas(int numeroMinas){
+        Random random = new Random();
+        int minasColocadas = 0;
+        
+        while (minasColocadas < numeroMinas){
+            int fila = random.nextInt(filas);
+            int columna = random.nextInt(columnas);
+            Celda celda = celdas[fila][columna];
+            if (!celda.isEsMina()){
+                celda.setEsMina(true);
+                minasColocadas++;
+            }
+        }
+    }
     
+    public void ContarMinasAdyacentes(){
+        for (int i = 0; i < filas; i++){
+            for (int j = 0; j < columnas; j++){
+                Celda celda = celdas[i][j];
+                if (!celda.isEsMina()){
+                    int minasAdyacentes = 0;
+                    for (Celda adyacente : celda.getAdyacentes()){
+                        if (adyacente != null && adyacente.isEsMina()){
+                            minasAdyacentes++;
+                        }
+                    }
+                    celda.setMinasAdyacentes(minasAdyacentes);
+                }
+            }
+        }
+    }        
 }
