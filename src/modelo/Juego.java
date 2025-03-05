@@ -4,31 +4,106 @@
  */
 package modelo;
 
+import Principal.Celda;
 import Principal.Tablero;
 import java.awt.Color;
+import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.SwingUtilities;
+
 
 public class Juego extends javax.swing.JFrame {
     private Tablero tablero;
     private JButton[][] botones;
     
     public Juego(int filas, int columnas, int minas) {                
+        setTitle("Metrobuscaminas");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
-        setUndecorated(true);
+                
+        tablero = new Tablero(filas, columnas, minas);
+        botones = new JButton[filas][columnas];
+        
+        InicializarInterfaz();
         
     }
     private void InicializarInterfaz(){
+        JPanel panelTablero = new JPanel(new GridLayout(tablero.getFilas(), tablero.getColumnas()));
         
+        for (int i = 0; i < tablero.getFilas(); i++){
+            for (int j = 0; j < tablero.getColumnas(); j++){
+                final int fila = i;
+                final int columna = j;
+                
+                Celda celda = tablero.ObtenerCelda(fila, columna);
+                JButton boton = new JButton(celda.getId());
+                boton.setPreferredSize(new java.awt.Dimension(50, 50));
+                
+                boton.addActionListener(e -> ClicCasilla(fila, columna));
+                
+                boton.addMouseListener(new MouseAdapter(){                    
+                    public void mouseClicked(MouseEvent e){
+                        if (SwingUtilities.isRightMouseButton(e)){
+                            tablero.MarcarCelda(fila, columna);
+                            ActualizarInterfaz();
+                        }
+                    }
+                });
+                botones[i][j] = boton;
+                panelTablero.add(boton);
+            }
+        }
+        add(panelTablero);
+        pack();
     }
-    
-    private void ClicBoton(int fila, int columna){
+    // Metodo para controlar la funcion del clic izquierdo del mouse sobre una casilla 
+    private void ClicCasilla(int fila, int columna){
         tablero.RevelarCelda(fila, columna);
+        ActualizarInterfaz();
         
         if (tablero.ObtenerCelda(fila, columna).isEsMina()){
             javax.swing.JOptionPane.showMessageDialog(this, "Has perdido", "Partida terminada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            
+            dispose();
+            Celdas menu = new Celdas();
+            menu.setVisible(true);
+        } else if (tablero.VerificarVictoria()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Has ganado", "Partida terminada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            ReiniciarJuego();
         }
+    }
+    
+    private void ActualizarInterfaz(){
+        for (int i = 0; i < tablero.getFilas(); i++){
+            for (int j = 0; j < tablero.getColumnas(); j++){
+                JButton boton = botones[i][j];
+                Celda celda = tablero.ObtenerCelda(i, j);
+                
+                if (celda.isEsRevelada()){
+                    if(celda.isEsMina()){
+                       boton.setText("💣");
+                    } else {  
+                       boton.setText(Integer.toString(celda.getMinasAdyacentes()));                       
+                    }                    
+                } else if (celda.isEsMarcada()){
+                    boton.setText("🚩");
+                } else {
+                    boton.setText("");
+                }
+            }
+        }    
+    }
+    
+    private void ReiniciarJuego(){
+        int filas = tablero.getFilas();
+        int columnas = tablero.getColumnas();
+        int minas = tablero.getNumeroMinas();
+        tablero = new Tablero(filas, columnas, minas);
+        InicializarInterfaz();
     }
     
     

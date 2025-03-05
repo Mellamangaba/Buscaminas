@@ -142,7 +142,11 @@ public class Celdas extends javax.swing.JFrame {
     private void AceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AceptarMouseClicked
         int filas = Integer.parseInt(comboFilas.getSelectedItem().toString());
         int columnas = Integer.parseInt(comboColumnas.getSelectedItem().toString());
-        int minas = Integer.parseInt(comboMinas.getSelectedItem().toString());        
+        int minas = Integer.parseInt(comboMinas.getSelectedItem().toString());
+        
+        Juego juego = new Juego(filas, columnas, minas);
+        juego.setVisible(true);
+        dispose();
     }//GEN-LAST:event_AceptarMouseClicked
 
     private void comboFilasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFilasActionPerformed

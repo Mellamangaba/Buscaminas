@@ -31,7 +31,9 @@ public class Tablero {
         Celda celda = grafo.ObtenerCelda(fila, columna);
         if (celda != null && !celda.isEsRevelada() && !celda.isEsMarcada()){
             celda.setEsRevelada(true);
-            
+            if (celda.getMinasAdyacentes() == 0 && !celda.isEsMina()){
+                RevelarCeldasAdyacentes(fila, columna);
+            }
         }
     }
     
@@ -57,6 +59,13 @@ public class Tablero {
             }
         }
         return true;
+    }
+    
+    public void MarcarCelda(int fila, int columna){
+        Celda celda = grafo.ObtenerCelda(fila, columna);
+        if (celda != null && !celda.isEsRevelada()){
+            celda.setEsMarcada(!celda.isEsMarcada());            
+        }            
     }
     
     public int getFilas() {
