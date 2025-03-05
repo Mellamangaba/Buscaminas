@@ -10,11 +10,12 @@ public class Tablero {
     private int columnas;
     private int numeroMinas;
 
-    public Tablero(Grafo grafo, int filas, int columnas, int numeroMinas) {
-        this.grafo = grafo;
+    public Tablero(int filas, int columnas, int numeroMinas) {
+        this.grafo = new Grafo(filas, columnas);
         this.filas = filas;
         this.columnas = columnas;
         this.numeroMinas = numeroMinas;
+        InicializarTablero();
     }
     
     private void InicializarTablero(){
@@ -46,6 +47,18 @@ public class Tablero {
         }
     }
     
+    public boolean VerificarVictoria(){
+        for (int i = 0; i < filas; i++){
+            for (int j = 0; j < columnas; j++){
+                Celda celda = grafo.ObtenerCelda(i, j);
+                if (!celda.isEsMina() && !celda.isEsRevelada()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
     public int getFilas() {
         return filas;
     }
@@ -53,8 +66,11 @@ public class Tablero {
     public int getColumnas() {
         return columnas;
     }
-    
-    
+
+    public int getNumeroMinas() {
+        return numeroMinas;
+    }
+        
 }
 
 

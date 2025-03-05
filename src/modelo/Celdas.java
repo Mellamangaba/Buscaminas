@@ -105,6 +105,11 @@ public class Celdas extends javax.swing.JFrame {
         getContentPane().add(comboColumnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 161, -1, -1));
 
         comboMinas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboMinas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMinasActionPerformed(evt);
+            }
+        });
         getContentPane().add(comboMinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 221, -1, -1));
 
         Aceptar.setText("Aceptar");
@@ -113,7 +118,7 @@ public class Celdas extends javax.swing.JFrame {
                 AceptarMouseClicked(evt);
             }
         });
-        getContentPane().add(Aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 265, -1, -1));
+        getContentPane().add(Aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,9 +140,9 @@ public class Celdas extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void AceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AceptarMouseClicked
-        Juego juego = new Juego();
-        juego.setVisible(true);
-        dispose();
+        int filas = Integer.parseInt(comboFilas.getSelectedItem().toString());
+        int columnas = Integer.parseInt(comboColumnas.getSelectedItem().toString());
+        int minas = Integer.parseInt(comboMinas.getSelectedItem().toString());        
     }//GEN-LAST:event_AceptarMouseClicked
 
     private void comboFilasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFilasActionPerformed
@@ -147,6 +152,10 @@ public class Celdas extends javax.swing.JFrame {
     private void comboColumnasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColumnasActionPerformed
         actualizarRangoMinas();
     }//GEN-LAST:event_comboColumnasActionPerformed
+
+    private void comboMinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMinasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMinasActionPerformed
     private void actualizarRangoMinas() {
         
         int filas = Integer.parseInt(comboFilas.getSelectedItem().toString());
@@ -158,38 +167,6 @@ public class Celdas extends javax.swing.JFrame {
         for (int i = 1; i <= maxMinas; i++) {
             comboMinas.addItem(String.valueOf(i));
         }
-    }
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Celdas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Celdas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Celdas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Celdas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Celdas().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

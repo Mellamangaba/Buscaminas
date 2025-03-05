@@ -39,7 +39,7 @@ public class Grafo {
     }
     
     public Celda ObtenerCelda(int fila, int columna){
-        if (fila >= 0 && fila < filas && columna >= 0 && columna < columna){
+        if (fila >= 0 && fila < filas && columna >= 0 && columna < columnas){
             return celdas [fila][columna];
         }
         return null;
