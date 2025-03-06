@@ -84,9 +84,6 @@ public class Celda {
                 adyacentes[i] = celda;
                 break;
             }
-
         }
-
     }
-
 }

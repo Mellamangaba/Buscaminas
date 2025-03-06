@@ -5,6 +5,7 @@
 package modelo;
 
 import Principal.Celda;
+import Principal.FormInicio;
 import Principal.Tablero;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -42,7 +43,7 @@ public class Juego extends javax.swing.JFrame {
                 
                 Celda celda = tablero.ObtenerCelda(fila, columna);
                 JButton boton = new JButton(celda.getId());
-                boton.setPreferredSize(new java.awt.Dimension(50, 50));
+                boton.setPreferredSize(new java.awt.Dimension(60, 60));
                 
                 boton.addActionListener(e -> ClicCasilla(fila, columna));
                 
@@ -69,11 +70,13 @@ public class Juego extends javax.swing.JFrame {
         if (tablero.ObtenerCelda(fila, columna).isEsMina()){
             javax.swing.JOptionPane.showMessageDialog(this, "Has perdido", "Partida terminada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            Celdas menu = new Celdas();
-            menu.setVisible(true);
+            FormInicio inicio = new FormInicio();
+            inicio.setVisible(true);
         } else if (tablero.VerificarVictoria()){
             javax.swing.JOptionPane.showMessageDialog(this, "Has ganado", "Partida terminada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            ReiniciarJuego();
+            dispose();
+            FormInicio inicio = new FormInicio();
+            inicio.setVisible(true);
         }
     }
     
@@ -97,7 +100,7 @@ public class Juego extends javax.swing.JFrame {
             }
         }    
     }
-    
+    /*
     private void ReiniciarJuego(){
         int filas = tablero.getFilas();
         int columnas = tablero.getColumnas();
@@ -105,7 +108,7 @@ public class Juego extends javax.swing.JFrame {
         tablero = new Tablero(filas, columnas, minas);
         InicializarInterfaz();
     }
-    
+    */
     
     /**
      * This method is called from within the constructor to initialize the form.
