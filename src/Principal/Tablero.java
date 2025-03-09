@@ -4,8 +4,6 @@
  */
 package Principal;
 
-import Principal.Celda;
-
 
 public class Tablero {
 
@@ -124,6 +122,10 @@ public class Tablero {
 
     public int getNumeroMinas() {
         return numeroMinas;
+    }
+
+    public Grafo getGrafo() {
+        return grafo;
     }
 
 }

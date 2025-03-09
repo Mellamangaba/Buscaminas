@@ -5,8 +5,15 @@
 package Principal;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import modelo.Celdas;
+import modelo.Juego;
 
 /**
  *
@@ -16,22 +23,90 @@ public class FormInicio extends javax.swing.JFrame {
 
     /**
      * Creates new form FormInicio
+     *
+     * @param args
      */
-    
     public static void main(String[] args) {
         FormInicio formInicio = new FormInicio();
         new FormInicio().setVisible(true);
     }
-   
+
     public FormInicio() {
         setUndecorated(true);
         initComponents();
-        
+
         setResizable(false);
         setLocationRelativeTo(null);
-        
+
     }
-    
+
+    private void CargarPartida() throws IOException {
+        JFileChooser fileChooser = new JFileChooser();
+        int seleccion = fileChooser.showOpenDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            Tablero tablero = CargarTableroDesdeCSV(fileChooser.getSelectedFile().getPath());
+            Juego juego = new Juego(tablero);
+            juego.setVisible(true);
+            dispose();
+        }
+    }
+
+    private Tablero CargarTableroDesdeCSV(String rutaArchivo) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            int filas = 0;
+            int columnas = 0;
+
+            // Contar filas y columnas
+            while ((linea = reader.readLine()) != null) {
+                filas++;
+                String[] valores = linea.split(",");
+                columnas = valores.length;
+            }
+
+            // Crear el tablero
+            Tablero tablero = new Tablero(filas, columnas, 0); // El número de minas se ajustará al cargar
+
+            // Reiniciar el lector para leer el archivo nuevamente
+            reader.close();
+            BufferedReader reader2 = new BufferedReader(new FileReader(rutaArchivo));
+
+            // Cargar el estado del tablero
+            int fila = 0;
+            while ((linea = reader2.readLine()) != null && fila < filas) {
+                String[] valores = linea.split(",");
+
+                for (int columna = 0; columna < valores.length && columna < columnas; columna++) {
+                    Celda celda = tablero.ObtenerCelda(fila, columna);
+                    String valor = valores[columna].trim();
+
+                    switch (valor.charAt(0)) {
+                        case 'M':
+                            celda.setEsMina(true); // Mina
+                            break;
+                        case 'B':
+                            celda.setEsMarcada(true); // Bandera
+                            break;
+                        case 'R':
+                            celda.setEsRevelada(true); // Celda revelada
+                            celda.setMinasAdyacentes(Integer.parseInt(valor.substring(1))); // Número de minas adyacentes
+                            break;
+                        case 'V':
+                            // Celda vacía (no revelada ni marcada)
+                            break;
+                    }
+                }
+                fila++;
+            }
+
+            // Calcular minas adyacentes para todas las celdas
+            tablero.getGrafo().ContarMinasAdyacentes(); // Llamar al método de la clase Grafo
+
+            return tablero;
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,6 +208,9 @@ public class FormInicio extends javax.swing.JFrame {
         LblCargar.setText("  Cargar Partida");
         LblCargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LblCargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LblCargarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 LblCargarMouseEntered(evt);
             }
@@ -190,7 +268,7 @@ public class FormInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirMouseClicked
 
     private void SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseEntered
-       Salir.setForeground(Color.red);
+        Salir.setForeground(Color.red);
     }//GEN-LAST:event_SalirMouseEntered
 
     private void SalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseExited
@@ -198,7 +276,7 @@ public class FormInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirMouseExited
 
     private void LblIniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblIniciarMouseEntered
-        PanelBotonInicio.setBackground(new Color(153,153,153));
+        PanelBotonInicio.setBackground(new Color(153, 153, 153));
     }//GEN-LAST:event_LblIniciarMouseEntered
 
     private void PanelBotonInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBotonInicioMouseEntered
@@ -206,22 +284,24 @@ public class FormInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_PanelBotonInicioMouseEntered
 
     private void LblCargarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblCargarMouseEntered
-        PanelBotonCargar.setBackground(new Color(153,153,153));
+        PanelBotonCargar.setBackground(new Color(153, 153, 153));
     }//GEN-LAST:event_LblCargarMouseEntered
 
     private void LblIniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblIniciarMouseExited
-        PanelBotonInicio.setBackground(new Color(204,204,204));
+        PanelBotonInicio.setBackground(new Color(204, 204, 204));
     }//GEN-LAST:event_LblIniciarMouseExited
 
     private void LblCargarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblCargarMouseExited
-        PanelBotonCargar.setBackground(new Color(204,204,204));
+        PanelBotonCargar.setBackground(new Color(204, 204, 204));
     }//GEN-LAST:event_LblCargarMouseExited
 
     private void InstructionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InstructionsActionPerformed
-        JOptionPane.showMessageDialog(this,"Las instrucciones para jugar son:\n1.- \n" 
-                + "2-\n"
-                + "3-\n"
-                + "4-\n");
+        JOptionPane.showMessageDialog(this, "Las instrucciones para jugar son:\n\n1-Haz clic izquierdo para revelar una celda.\n"
+                + "2-Haz clic derecho para marcar una celda como mina\n"
+                + "3-Si revelas una mina, pierdes la partida.\n"
+                + "4-Si revelas todas las celdas que no son minas, ganas.\n"
+                + "5-Los números en las celdas indican cuántas minas hay en las celdas adyacentes.\n"
+                + "\n\n" + "¡Buena suerte!");
     }//GEN-LAST:event_InstructionsActionPerformed
 
     private void LblIniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblIniciarMouseClicked
@@ -229,6 +309,14 @@ public class FormInicio extends javax.swing.JFrame {
         celdas.setVisible(true);
         dispose();
     }//GEN-LAST:event_LblIniciarMouseClicked
+
+    private void LblCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LblCargarMouseClicked
+        try {
+            CargarPartida();
+        } catch (IOException ex) {
+            Logger.getLogger(FormInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_LblCargarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
