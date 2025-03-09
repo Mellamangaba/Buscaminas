@@ -66,13 +66,13 @@ public class FormInicio extends javax.swing.JFrame {
             }
 
             // Crear el tablero
-            Tablero tablero = new Tablero(filas, columnas, 0); // El número de minas se ajustará al cargar
+            Tablero tablero = new Tablero(filas, columnas, 0); // El numero de minas se establece en cero para ser asignadas usando el csv
 
             // Reiniciar el lector para leer el archivo nuevamente
             reader.close();
             BufferedReader reader2 = new BufferedReader(new FileReader(rutaArchivo));
 
-            // Cargar el estado del tablero
+            // No carga el estado del tablero correctamente
             int fila = 0;
             while ((linea = reader2.readLine()) != null && fila < filas) {
                 String[] valores = linea.split(",");
@@ -93,15 +93,15 @@ public class FormInicio extends javax.swing.JFrame {
                             celda.setMinasAdyacentes(Integer.parseInt(valor.substring(1))); // Número de minas adyacentes
                             break;
                         case 'V':
-                            // Celda vacía (no revelada ni marcada)
+                            // Celda sin revelar
                             break;
                     }
                 }
                 fila++;
             }
 
-            // Calcular minas adyacentes para todas las celdas
-            tablero.getGrafo().ContarMinasAdyacentes(); // Llamar al método de la clase Grafo
+            // Calcular minas adyacentes para todas las celdas usando el metodo de la clase Grafo
+            tablero.getGrafo().ContarMinasAdyacentes(); 
 
             return tablero;
         }

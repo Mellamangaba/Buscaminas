@@ -4,7 +4,7 @@
  */
 package Principal;
 
-
+// clase para la inicializacion del tablero y las reglas basicas del juego
 public class Tablero {
 
     private Grafo grafo;

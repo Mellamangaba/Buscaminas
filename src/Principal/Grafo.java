@@ -5,7 +5,7 @@
 package Principal;
 
 import java.util.Random;
-
+// Clase para definir el comportamiento de cada celda
 /**
  *
  * @author Daniel

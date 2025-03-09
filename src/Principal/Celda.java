@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Principal;
-
+// Clase para establecer los atributos de las celdas del juego
 public class Celda {
 
     private String id;
