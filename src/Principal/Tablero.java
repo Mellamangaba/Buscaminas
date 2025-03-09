@@ -31,7 +31,7 @@ public class Tablero {
         return grafo.ObtenerCelda(fila, columna);
     }
 
-    public void RevelarCelda(int fila, int columna) {
+    public void RevelarCeldaProfundidad(int fila, int columna) {
         Celda celda = grafo.ObtenerCelda(fila, columna);
 
         if (celda != null && !celda.isEsRevelada() && !celda.isEsMarcada()) {
@@ -41,6 +41,17 @@ public class Tablero {
             }
         }
     }    
+    
+    public void RevelarCeldaAmplitud(int fila, int columna) {
+        Celda celda = grafo.ObtenerCelda(fila, columna);
+
+        if (celda != null && !celda.isEsRevelada() && !celda.isEsMarcada()) {
+            celda.setEsRevelada(true);
+            if (celda.getMinasAdyacentes() == 0 && !celda.isEsMina()) {
+                BusquedaAmplitud(fila, columna);
+            }
+        }
+    }
     
     private void BusquedaProfundidad(int fila, int columna) {
         Celda[] adyacentes = grafo.ObtenerAdyacentes(fila, columna);
